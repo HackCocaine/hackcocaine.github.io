@@ -95,7 +95,25 @@
             height: 2px;
             bottom: -5px;
             left: 0;
-            background: linear-gradient(90deg, transparent, var(--accent-color), transparent;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+        
+        /* Animación estilo Minecraft (bounce) */
+        @keyframes minecraftBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .minecraft-bounce {
+            animation: minecraftBounce 1s infinite;
+            animation-delay: 0.5s;
         }
         
         section {
@@ -214,7 +232,7 @@
     <div class="container">
         <header class="animate__animated animate__fadeIn">
             <h1 class="title">Marcelo Burgos</h1>
-            <div class="aka floating">Aka. HackCocaine</div>
+            <div class="aka minecraft-bounce">Aka. HackCocaine</div>
         </header>
         
         <section id="about" class="animate__animated">
@@ -233,7 +251,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- You can add your repositories here -->
                     <tr>
                         <td><a href="https://github.com/HackCocaine/BjornCocaine" class="repo-link">Bjorn Cocaine</a></td>
                         <td>Automated internal network penetration testing device</td>
@@ -249,14 +266,13 @@
                         <td>Simple Chrome extension for parental control purposes</td>
                         <td>JavaScript</td>
                     </tr>
-                    <!-- Add more repos as needed -->
                 </tbody>
             </table>
         </section>
         
         <section id="visitor-section" class="animate__animated">
             <h2>Visitor Information</h2>
-            <p>This is what I know about you (demo only):</p>
+            <p>This is what I know about you!:</p>
             <pre id="visitorInfo">Loading information...</pre>
             <small>
                 This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).  
