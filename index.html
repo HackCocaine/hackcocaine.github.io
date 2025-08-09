@@ -1,101 +1,419 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Información del Visitante - Demo</title>
-<style>
-  body {
-    background: #0b0c0a;
-    color: #39ff14;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 20px;
-  }
-  #visitorInfo {
-    background: #121512;
-    border: 1px solid #39ff14;
-    padding: 15px;
-    max-width: 700px;
-    margin: 0 auto;
-    white-space: pre-wrap;
-  }
-  h1, h2 {
-    color: #39ff14;
-  }
-  small {
-    color: #a0a0a0;
-  }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Marcelo Burgos Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary-color: #39ff14;
+            --secondary-color: #0b0c0a;
+            --accent-color: #ff14e9;
+            --text-color: #f0f0f0;
+            --bg-color: #121512;
+        }
+        
+        body {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2339ff14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>'), auto;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.7;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, opacity 0.3s ease-out;
+        }
+        
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .language-btn {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-btn:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .aka {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .aka:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent;
+        }
+        
+        section {
+            margin-bottom: 50px;
+            padding: 20px;
+            border-left: 3px solid var(--primary-color);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+        }
+        
+        .repos-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .repos-table th, .repos-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+        }
+        
+        .repos-table th {
+            color: var(--primary-color);
+            font-weight: normal;
+        }
+        
+        .repos-table tr:hover {
+            background: rgba(57, 255, 20, 0.05);
+        }
+        
+        .repo-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .repo-link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        #visitorInfo {
+            background: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            margin-top: 30px;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+        
+        small {
+            color: #a0a0a0;
+            display: block;
+            margin-top: 20px;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.4);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
+    <div class="cursor-trail"></div>
+    
+    <div class="language-selector">
+        <button class="language-btn" id="lang-en">EN</button>
+        <button class="language-btn" id="lang-es">ES</button>
+    </div>
+    
+    <div class="container">
+        <header class="animate__animated animate__fadeIn">
+            <h1 class="title">Marcelo Burgos</h1>
+            <div class="aka floating">Aka. HackCocaine</div>
+        </header>
+        
+        <section id="about" class="animate__animated">
+            <h2>About Me</h2>
+            <p>Creative developer with a passion for building innovative solutions and pushing the boundaries of technology. Specializing in web development, security, and privacy-focused applications.</p>
+        </section>
+        
+        <section id="repositories" class="animate__animated">
+            <h2>My Repositories</h2>
+            <table class="repos-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Language</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- You can add your repositories here -->
+                    <tr>
+                        <td><a href="#" class="repo-link">Project Alpha</a></td>
+                        <td>Advanced security toolkit</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" class="repo-link">Web Anonymizer</a></td>
+                        <td>Privacy protection tool</td>
+                        <td>JavaScript</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" class="repo-link">Data Visualizer</a></td>
+                        <td>Interactive data visualization</td>
+                        <td>TypeScript</td>
+                    </tr>
+                    <!-- Add more repos as needed -->
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="visitor-section" class="animate__animated">
+            <h2>Visitor Information</h2>
+            <p>This is what I know about you (demo only):</p>
+            <pre id="visitorInfo">Loading information...</pre>
+            <small>
+                This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).  
+                <br>No cookies or any tracking methods are used.
+            </small>
+        </section>
+    </div>
 
-<h1>ANONIMIZADOR</h1>
-<p>¡Hola! Esto es lo que sé de ti:</p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.10/i18next.min.js"></script>
+    <script>
+        // Language switcher
+        i18next.init({
+            lng: 'en',
+            resources: {
+                en: {
+                    translation: {
+                        "title": "Marcelo Burgos",
+                        "aka": "Aka. HackCocaine",
+                        "about": "About Me",
+                        "about_text": "Creative developer with a passion for building innovative solutions and pushing the boundaries of technology. Specializing in web development, security, and privacy-focused applications.",
+                        "repositories": "My Repositories",
+                        "visitor_info": "Visitor Information",
+                        "visitor_text": "This is what I know about you (demo only):",
+                        "disclaimer": "This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).<br>No cookies or any tracking methods are used."
+                    }
+                },
+                es: {
+                    translation: {
+                        "title": "Marcelo Burgos",
+                        "aka": "Aka. HackCocaine",
+                        "about": "Sobre Mí",
+                        "about_text": "Desarrollador creativo con pasión por construir soluciones innovadoras y expandir los límites de la tecnología. Especializado en desarrollo web, seguridad y aplicaciones enfocadas en privacidad.",
+                        "repositories": "Mis Repositorios",
+                        "visitor_info": "Información del Visitante",
+                        "visitor_text": "¡Hola! Esto es lo que sé de ti (solo demo):",
+                        "disclaimer": "Esta información se muestra solo a modo demostrativo y <strong>no se almacena ni envía a ningún servidor</strong> (excepto la IP, que se obtiene de forma anónima vía API pública).<br>No se usan cookies ni ningún tipo de rastreo."
+                    }
+                }
+            }
+        });
 
-<pre id="visitorInfo">Cargando información...</pre>
+        document.getElementById('lang-en').addEventListener('click', () => {
+            i18next.changeLanguage('en');
+            updateContent();
+        });
 
-<p><small>
-  Esta información se muestra solo a modo demostrativo y <strong>no se almacena ni envía a ningún servidor</strong> (excepto la IP, que se obtiene de forma anónima vía API pública).  
-  <br>No se usan cookies ni ningún tipo de rastreo.
-</small></p>
+        document.getElementById('lang-es').addEventListener('click', () => {
+            i18next.changeLanguage('es');
+            updateContent();
+        });
 
-<script>
-async function getVisitorData() {
-  const infoDiv = document.getElementById('visitorInfo');
-  
-  // Intentamos obtener IP pública vía API ipify (IPv4)
-  let ip = 'Desconocida';
-  try {
-    const response = await fetch('https://api64.ipify.org?format=json');
-    if (response.ok) {
-      const data = await response.json();
-      ip = data.ip;
-    }
-  } catch {}
+        function updateContent() {
+            document.querySelector('.title').textContent = i18next.t('title');
+            document.querySelector('.aka').textContent = i18next.t('aka');
+            document.querySelector('#about h2').textContent = i18next.t('about');
+            document.querySelector('#about p').textContent = i18next.t('about_text');
+            document.querySelector('#repositories h2').textContent = i18next.t('repositories');
+            document.querySelector('#visitor-section h2').textContent = i18next.t('visitor_info');
+            document.querySelector('#visitor-section p').textContent = i18next.t('visitor_text');
+            document.querySelector('#visitor-section small').innerHTML = i18next.t('disclaimer');
+        }
 
-  // Construcción del objeto info con propiedades accesibles
-  const navigatorInfo = window.navigator;
-  const screenInfo = window.screen;
+        // Cursor trail effect
+        const cursor = document.querySelector('.cursor-trail');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Create additional trail elements
+            if (Math.random() > 0.7) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = `translate(-50%, -50%) scale(2)`;
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 300);
+                }, 100);
+            }
+        });
 
-  const data = {
-    "Dirección IP": ip,
-    "User Agent": navigatorInfo.userAgent,
-    "Plataforma": navigatorInfo.platform,
-    "Idioma": navigatorInfo.language,
-    "Cookies Habilitadas": navigatorInfo.cookieEnabled,
-    "Resolución de Pantalla": `${screenInfo.width}x${screenInfo.height}`,
-    "Profundidad de Color": screenInfo.colorDepth,
-    "Zona Horaria": Intl.DateTimeFormat().resolvedOptions().timeZone || 'No disponible',
-    "Nombre del Navegador": (navigatorInfo.appName || 'Desconocido'),
-    "Versión del Navegador": (navigatorInfo.appVersion || 'Desconocido'),
-    "Estado de Conexión": navigator.onLine ? 'Online' : 'Offline',
-    "Do Not Track": navigator.doNotTrack || 'No especificado',
-    "Núcleos de CPU": navigatorInfo.hardwareConcurrency || 'No disponible',
-    "Memoria del Dispositivo (GB)": navigatorInfo.deviceMemory || 'No disponible',
-    "Referente": document.referrer || 'No hay referente',
-    "Soporte para Touch": ('ontouchstart' in window) ? 'Sí' : 'No',
-    "Java Habilitado": navigatorInfo.javaEnabled ? navigatorInfo.javaEnabled() : 'No disponible',
-    "Visor de PDF Habilitado": !!navigator.pdfViewerEnabled || false,
-    "Webdriver": navigator.webdriver || false,
-    "Producto": navigatorInfo.product || 'No disponible',
-    "Subproducto": navigatorInfo.productSub || 'No disponible',
-    "Proveedor": navigatorInfo.vendor || 'No disponible',
-    "Subproveedor": navigatorInfo.vendorSub || 'No disponible',
-    "Puntos Máximos de Touch": (navigator.maxTouchPoints !== undefined) ? navigator.maxTouchPoints : 'No disponible',
-    "Fecha y Hora Actual": new Date().toLocaleString()
-  };
+        // Scroll animations
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
-  // Formatear para mostrar
-  let output = '';
-  for (const [key, value] of Object.entries(data)) {
-    output += `${key}: ${value}\n`;
-  }
+        sections.forEach(section => {
+            observer.observe(section);
+        });
 
-  infoDiv.textContent = output;
-}
+        // Visitor info
+        async function getVisitorData() {
+            const infoDiv = document.getElementById('visitorInfo');
+            
+            // Get public IP via ipify API (IPv4)
+            let ip = 'Unknown';
+            try {
+                const response = await fetch('https://api64.ipify.org?format=json');
+                if (response.ok) {
+                    const data = await response.json();
+                    ip = data.ip;
+                }
+            } catch {}
 
-getVisitorData();
-</script>
+            // Build info object with accessible properties
+            const navigatorInfo = window.navigator;
+            const screenInfo = window.screen;
 
+            const data = {
+                "IP Address": ip,
+                "User Agent": navigatorInfo.userAgent,
+                "Platform": navigatorInfo.platform,
+                "Language": navigatorInfo.language,
+                "Cookies Enabled": navigatorInfo.cookieEnabled,
+                "Screen Resolution": `${screenInfo.width}x${screenInfo.height}`,
+                "Color Depth": screenInfo.colorDepth,
+                "Time Zone": Intl.DateTimeFormat().resolvedOptions().timeZone || 'Not available',
+                "Browser Name": (navigatorInfo.appName || 'Unknown'),
+                "Browser Version": (navigatorInfo.appVersion || 'Unknown'),
+                "Connection Status": navigator.onLine ? 'Online' : 'Offline',
+                "Do Not Track": navigator.doNotTrack || 'Not specified',
+                "CPU Cores": navigatorInfo.hardwareConcurrency || 'Not available',
+                "Device Memory (GB)": navigatorInfo.deviceMemory || 'Not available',
+                "Referrer": document.referrer || 'No referrer',
+                "Touch Support": ('ontouchstart' in window) ? 'Yes' : 'No',
+                "Java Enabled": navigatorInfo.javaEnabled ? navigatorInfo.javaEnabled() : 'Not available',
+                "PDF Viewer Enabled": !!navigator.pdfViewerEnabled || false,
+                "Webdriver": navigator.webdriver || false,
+                "Product": navigatorInfo.product || 'Not available',
+                "Product Sub": navigatorInfo.productSub || 'Not available',
+                "Vendor": navigatorInfo.vendor || 'Not available',
+                "Vendor Sub": navigatorInfo.vendorSub || 'Not available',
+                "Max Touch Points": (navigator.maxTouchPoints !== undefined) ? navigator.maxTouchPoints : 'Not available',
+                "Current Date & Time": new Date().toLocaleString()
+            };
+
+            // Format for display
+            let output = '';
+            for (const [key, value] of Object.entries(data)) {
+                output += `${key}: ${value}\n`;
+            }
+
+            infoDiv.textContent = output;
+        }
+
+        getVisitorData();
+    </script>
 </body>
 </html>
