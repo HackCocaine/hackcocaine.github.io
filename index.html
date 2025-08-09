@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Marcelo Burgos Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
             --primary-color: #39ff14;
@@ -179,6 +180,38 @@
             text-decoration: underline;
         }
         
+        /* Social Media Styles */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .social-link i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
         #visitorInfo {
             background: var(--bg-color);
             border: 1px solid var(--primary-color);
@@ -253,21 +286,47 @@
                 <tbody>
                     <tr>
                         <td><a href="https://github.com/HackCocaine/BjornCocaine" class="repo-link">Bjorn Cocaine</a></td>
-                        <td>Automated internal network penetration testing device</td>
+                        <td class="repo-desc">Automated internal network penetration testing device</td>
                         <td>Python</td>
                     </tr>
                     <tr>
                         <td><a href="https://github.com/HackCocaine/www-project-wi-fi-security-testing-guide" class="repo-link">OWASP Wi-Fi Security Testing Guide</a></td>
-                        <td>Standarized guide for security testing against 802.11 protocol</td>
+                        <td class="repo-desc">Standarized guide for security testing against 802.11 protocol</td>
                         <td>Markdown</td>
                     </tr>
                     <tr>
                         <td><a href="https://github.com/HackCocaine/RobloxBlackList" class="repo-link">Roblox Web extension</a></td>
-                        <td>Simple Chrome extension for parental control purposes</td>
+                        <td class="repo-desc">Simple Chrome extension for parental control purposes</td>
                         <td>JavaScript</td>
                     </tr>
                 </tbody>
             </table>
+        </section>
+        
+        <section id="social-media" class="animate__animated">
+            <h2>Connect With Me</h2>
+            <div class="social-links">
+                <a href="https://github.com/HackCocaine/HackCocaine" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span class="social-text">GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/hackcocaine/" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    <span class="social-text">LinkedIn</span>
+                </a>
+                <a href="https://www.reddit.com/user/hackcocaine/" class="social-link" target="_blank">
+                    <i class="fab fa-reddit"></i>
+                    <span class="social-text">Reddit</span>
+                </a>
+                <a href="https://www.youtube.com/@HackCocaine" class="social-link" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <span class="social-text">YouTube</span>
+                </a>
+                <a href="https://discord.com/users/476467764794621972" class="social-link" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    <span class="social-text">Discord</span>
+                </a>
+            </div>
         </section>
         
         <section id="visitor-section" class="animate__animated">
@@ -294,9 +353,18 @@
                         "about": "About Me",
                         "about_text": "Creative developer with a passion for building innovative solutions and pushing the boundaries of technology. Specializing in web development, security, and privacy-focused applications.",
                         "repositories": "My Repositories",
+                        "social_media": "Connect With Me",
                         "visitor_info": "Visitor Information",
                         "visitor_text": "This is what I know about you!:",
-                        "disclaimer": "This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).<br>No cookies or any tracking methods are used."
+                        "disclaimer": "This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).<br>No cookies or any tracking methods are used.",
+                        "repo_bjorn": "Automated internal network penetration testing device",
+                        "repo_owasp": "Standarized guide for security testing against 802.11 protocol",
+                        "repo_roblox": "Simple Chrome extension for parental control purposes",
+                        "social_github": "GitHub",
+                        "social_linkedin": "LinkedIn",
+                        "social_reddit": "Reddit",
+                        "social_youtube": "YouTube",
+                        "social_discord": "Discord"
                     }
                 },
                 es: {
@@ -306,9 +374,18 @@
                         "about": "Sobre Mí",
                         "about_text": "Desarrollador creativo con pasión por construir soluciones innovadoras y expandir los límites de la tecnología. Especializado en desarrollo web, seguridad y aplicaciones enfocadas en privacidad.",
                         "repositories": "Mis Repositorios",
+                        "social_media": "Conéctate Conmigo",
                         "visitor_info": "Información del Visitante",
                         "visitor_text": "¡Hola! Esto es lo que sé de ti!:",
-                        "disclaimer": "Esta información se muestra solo a modo demostrativo y <strong>no se almacena ni envía a ningún servidor</strong> (excepto la IP, que se obtiene de forma anónima vía API pública).<br>No se usan cookies ni ningún tipo de rastreo."
+                        "disclaimer": "Esta información se muestra solo a modo demostrativo y <strong>no se almacena ni envía a ningún servidor</strong> (excepto la IP, que se obtiene de forma anónima vía API pública).<br>No se usan cookies ni ningún tipo de rastreo.",
+                        "repo_bjorn": "Dispositivo automatizado para pruebas de penetración en redes internas",
+                        "repo_owasp": "Guía estandarizada para pruebas de seguridad en protocolo 802.11",
+                        "repo_roblox": "Extensión simple de Chrome para control parental",
+                        "social_github": "GitHub",
+                        "social_linkedin": "LinkedIn",
+                        "social_reddit": "Reddit",
+                        "social_youtube": "YouTube",
+                        "social_discord": "Discord"
                     }
                 }
             }
@@ -330,9 +407,24 @@
             document.querySelector('#about h2').textContent = i18next.t('about');
             document.querySelector('#about p').textContent = i18next.t('about_text');
             document.querySelector('#repositories h2').textContent = i18next.t('repositories');
+            document.querySelector('#social-media h2').textContent = i18next.t('social_media');
             document.querySelector('#visitor-section h2').textContent = i18next.t('visitor_info');
             document.querySelector('#visitor-section p').textContent = i18next.t('visitor_text');
             document.querySelector('#visitor-section small').innerHTML = i18next.t('disclaimer');
+            
+            // Update repo descriptions
+            const repoDescs = document.querySelectorAll('.repo-desc');
+            repoDescs[0].textContent = i18next.t('repo_bjorn');
+            repoDescs[1].textContent = i18next.t('repo_owasp');
+            repoDescs[2].textContent = i18next.t('repo_roblox');
+            
+            // Update social media texts
+            const socialTexts = document.querySelectorAll('.social-text');
+            socialTexts[0].textContent = i18next.t('social_github');
+            socialTexts[1].textContent = i18next.t('social_linkedin');
+            socialTexts[2].textContent = i18next.t('social_reddit');
+            socialTexts[3].textContent = i18next.t('social_youtube');
+            socialTexts[4].textContent = i18next.t('social_discord');
         }
 
         // Cursor trail effect
