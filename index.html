@@ -173,6 +173,19 @@
             color: var(--primary-color);
             text-decoration: underline;
         }
+
+        /* Proyecto destacado */
+        .highlight-project {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 20, 233, 0.4);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 10px rgba(255, 20, 233, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 20, 233, 0.7); }
+            100% { box-shadow: 0 0 10px rgba(255, 20, 233, 0.3); }
+        }
         
         /* Social Media Styles */
         .social-links {
@@ -268,18 +281,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><a href="https://github.com/HackCocaine/BjornCocaine" class="repo-link">Bjorn Cocaine</a></td>
-                        <td class="repo-desc">Automated internal network penetration testing device</td>
-                        <td>Python</td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://github.com/HackCocaine/www-project-wi-fi-security-testing-guide" class="repo-link">OWASP Wi-Fi Security Testing Guide</a></td>
+                    <!-- Proyecto OWASP destacado -->
+                    <tr class="highlight-project">
+                        <td>
+                            <a href="https://github.com/HackCocaine/www-project-wi-fi-security-testing-guide/blob/main/index.md" 
+                               class="repo-link" target="_blank" rel="noopener noreferrer">
+                               OWASP Wi-Fi Security Testing Guide ⭐
+                            </a>
+                        </td>
                         <td class="repo-desc">Standarized guide for security testing against 802.11 protocol</td>
                         <td>Markdown</td>
                     </tr>
                     <tr>
-                        <td><a href="https://github.com/HackCocaine/RobloxBlackList" class="repo-link">Roblox Web extension</a></td>
+                        <td><a href="https://github.com/HackCocaine/BjornCocaine" class="repo-link" target="_blank" rel="noopener noreferrer">Bjorn Cocaine</a></td>
+                        <td class="repo-desc">Automated internal network penetration testing device</td>
+                        <td>Python</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/HackCocaine/RobloxBlackList" class="repo-link" target="_blank" rel="noopener noreferrer">Roblox Web extension</a></td>
                         <td class="repo-desc">Simple Chrome extension for parental control purposes</td>
                         <td>JavaScript</td>
                     </tr>
@@ -351,8 +370,8 @@
                         "visitor_info": "Visitor Information",
                         "visitor_text": "This is what I know about you!:",
                         "disclaimer": "This information is displayed for demonstration purposes only and <strong>is not stored or sent to any server</strong> (except the IP, which is obtained anonymously via public API).<br>No cookies or any tracking methods are used.",
-                        "repo_bjorn": "Automated internal network penetration testing device",
                         "repo_owasp": "Standarized guide for security testing against 802.11 protocol",
+                        "repo_bjorn": "Automated internal network penetration testing device",
                         "repo_roblox": "Simple Chrome extension for parental control purposes",
                         "social_github": "GitHub",
                         "social_linkedin": "LinkedIn",
@@ -374,8 +393,8 @@
                         "visitor_info": "Información del Visitante",
                         "visitor_text": "¡Hola! Esto es lo que sé de ti!:",
                         "disclaimer": "Esta información se muestra solo a modo demostrativo y <strong>no se almacena ni envía a ningún servidor</strong> (excepto la IP, que se obtiene de forma anónima vía API pública).<br>No se usan cookies ni ningún tipo de rastreo.",
+                        "repo_owasp": "Guía estandarizada para pruebas de seguridad en redes Wi‑Fi (802.11)",
                         "repo_bjorn": "Dispositivo automatizado para pruebas de penetración en redes internas",
-                        "repo_owasp": "Guía estandarizada para pruebas de seguridad en protocolo 802.11",
                         "repo_roblox": "Extensión simple de Chrome para control parental",
                         "social_github": "GitHub",
                         "social_linkedin": "LinkedIn",
@@ -410,11 +429,11 @@
             document.querySelector('#visitor-section p').textContent = i18next.t('visitor_text');
             document.querySelector('#visitor-section small').innerHTML = i18next.t('disclaimer');
             
-            // Update repo descriptions
+            // Update repo descriptions (nuevo orden: OWASP, Bjorn, Roblox)
             const repoDescs = document.querySelectorAll('.repo-desc');
             if (repoDescs.length >= 3) {
-                repoDescs[0].textContent = i18next.t('repo_bjorn');
-                repoDescs[1].textContent = i18next.t('repo_owasp');
+                repoDescs[0].textContent = i18next.t('repo_owasp');
+                repoDescs[1].textContent = i18next.t('repo_bjorn');
                 repoDescs[2].textContent = i18next.t('repo_roblox');
             }
             
@@ -430,6 +449,9 @@
                 socialTexts[6].textContent = i18next.t('social_matrix');
             }
         }
+
+        // Ejecuta una vez para asegurar consistencia con el idioma por defecto
+        updateContent();
 
         // Cursor trail effect
         const cursor = document.querySelector('.cursor-trail');
